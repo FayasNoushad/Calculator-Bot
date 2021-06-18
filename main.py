@@ -9,7 +9,7 @@ FayasNoushad = Client(
     api_hash = os.environ["API_HASH"]
 )
 
-CALCULATE_TEXT = "\n\n" + "Made by @FayasNoushad"
+CALCULATE_TEXT = "Made by @FayasNoushad"
 CALCULATE_BUTTONS = InlineKeyboardMarkup(
         [[
         InlineKeyboardButton("DEL", callback_data="DEL"),
@@ -58,7 +58,7 @@ async def cb_data(bot, update):
             else:
                 text = message_text + data
             await update.message.edit(
-                text=f"{text}{CALCULATE_TEXT},
+                text=f"{text}\n\n{CALCULATE_TEXT},
                 disable_web_page_preview=True,
                 reply_markup=reply_markup
             )
