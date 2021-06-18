@@ -9,7 +9,8 @@ FayasNoushad = Client(
     api_hash = os.environ["API_HASH"]
 )
 
-buttons = InlineKeyboardMarkup(
+CALCULATE_TEXT = "\n\n" + "Made by @FayasNoushad"
+CALCULATE_BUTTONS = InlineKeyboardMarkup(
         [[
         InlineKeyboardButton("DEL", callback_data="DEL"),
         InlineKeyboardButton("AC", callback_data="AC"),
@@ -41,11 +42,27 @@ buttons = InlineKeyboardMarkup(
 
 @FayasNoushad.on_callback_query()
 async def cb_data(bot, update):
-    key = update.data
-    await update.message.edit(
-        text=f"{update.text} {key}",
-        disable_web_page_preview=True,
-        reply_markup=buttons
-    )
+        data = update.data
+        try:
+            message_text = update.message.text.split("\n")[0].strip().split("=")[0].strip()
+            if data == "=":
+                reply_markup = InlineKeyboardMarkup()
+            else:
+                reply_markup = CALCULATE_BUTTONS
+            if data == "=":
+                text = float(eval(message_text))
+            elif  data == "DEL":
+                text = message_text[:-1]
+            elif data == "AC":
+                text = ""
+            else:
+                text = message_text + data
+            await update.message.edit(
+                text=f"{text}{CALCULATE_TEXT},
+                disable_web_page_preview=True,
+                reply_markup=reply_markup
+            )
+        except Exception as error:
+            print(error)
 
 FayasNoushad.run()
