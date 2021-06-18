@@ -43,7 +43,7 @@ buttons = InlineKeyboardMarkup(
 async def cb_data(bot, update):
     key = update.data
     await update.message.edit(
-        text="{update.text} {key}",
+        text=f"{update.text} {key}",
         disable_web_page_preview=True,
         reply_markup=buttons
     )
