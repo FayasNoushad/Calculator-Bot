@@ -51,7 +51,7 @@ async def cb_data(bot, update):
                 reply_markup = CALCULATE_BUTTONS
             if data == "=":
                 text = float(eval(message_text))
-            elif  data == "DEL":
+            elif data == "DEL":
                 text = message_text[:-1]
             elif data == "AC":
                 text = ""
