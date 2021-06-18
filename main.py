@@ -40,6 +40,15 @@ CALCULATE_BUTTONS = InlineKeyboardMarkup(
         ]]
     )
 
+@FayasNoushad.on_message(filters.private & filters.command(["calc", "calculate", "calculator"]))
+async def calculate(bot, update):
+    await update.reply_text(
+        text=CALCULATE_TEXT,
+        reply_markup=CALCULATE_BUTTONS,
+        disable_web_page_preview=True,
+        quote=True
+    )
+
 @FayasNoushad.on_callback_query()
 async def cb_data(bot, update):
         data = update.data
