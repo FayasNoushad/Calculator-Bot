@@ -39,4 +39,13 @@ buttons = InlineKeyboardMarkup(
         ]]
     )
 
+@FayasNoushad.on_callback_query()
+async def cb_data(bot, update):
+    key = update.data
+    await update.message.edit(
+        text="{update.text} {key}",
+        disable_web_page_preview=True,
+        reply_markup=buttons
+    )
+
 FayasNoushad.run()
