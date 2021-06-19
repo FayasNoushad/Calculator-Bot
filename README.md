@@ -13,3 +13,8 @@ License -> https://github.com/FayasNoushad/Calculator-Bot/blob/main/LICENSE
 ```
 
 ---
+
+## Credits
+
+- [Fayas Noushad](https://github.com/FayasNoushad)
+- [Pyrogram](https://github.com/pyrogram/pyrogram)
