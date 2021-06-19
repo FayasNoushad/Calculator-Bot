@@ -9,24 +9,35 @@ FayasNoushad = Client(
     api_hash = os.environ["API_HASH"]
 )
 
+START_TEXT = """
+Hello {}, I am a simple calculator telegram bot.
+
+Made by @FayasNoushad
+"""
+START_BUTTONS = InlineKeyboardMarkup(
+        [[
+        InlineKeyboardButton('Help', callback_data='help'),
+        InlineKeyboardButton('About', callback_data='about'),
+        InlineKeyboardButton('Close', callback_data='close')
+        ]]
+    )
 CALCULATE_TEXT = "Made by @FayasNoushad"
 CALCULATE_BUTTONS = InlineKeyboardMarkup(
         [[
         InlineKeyboardButton("DEL", callback_data="DEL"),
         InlineKeyboardButton("AC", callback_data="AC"),
-        ],[
         InlineKeyboardButton("(", callback_data="("),
-        InlineKeyboardButton(")", callback_data=")"),
+        InlineKeyboardButton(")", callback_data=")")
         ],[
         InlineKeyboardButton("7", callback_data="7"),
         InlineKeyboardButton("8", callback_data="8"),
         InlineKeyboardButton("9", callback_data="9"),
-        InlineKeyboardButton("/", callback_data="/"),
+        InlineKeyboardButton("÷", callback_data="/")
         ],[
         InlineKeyboardButton("4", callback_data="4"),
         InlineKeyboardButton("5", callback_data="5"),
         InlineKeyboardButton("6", callback_data="6"),
-        InlineKeyboardButton("*", callback_data="*"),
+        InlineKeyboardButton("×", callback_data="*")
         ],[
         InlineKeyboardButton("1", callback_data="1"),
         InlineKeyboardButton("2", callback_data="2"),
@@ -38,6 +49,16 @@ CALCULATE_BUTTONS = InlineKeyboardMarkup(
         InlineKeyboardButton("=", callback_data="="),
         InlineKeyboardButton("+", callback_data="+"),
         ]]
+    )
+
+@FayasNoushad.on_message(filters.command(["start"]))
+async def start(bot, update):
+    text = START_TEXT.format(update.from_user.mention)
+    reply_markup = START_BUTTONS
+    await update.reply_text(
+        text=text,
+        disable_web_page_preview=True,
+        reply_markup=reply_markup
     )
 
 @FayasNoushad.on_message(filters.private & filters.command(["calc", "calculate", "calculator"]))
