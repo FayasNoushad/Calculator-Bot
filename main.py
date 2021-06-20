@@ -90,4 +90,48 @@ async def cb_data(bot, update):
         except Exception as error:
             print(error)
 
+@FayasNoushad.on_inline_query()
+async def inline(bot, update):
+    data = update.query
+    if len(data) == 0:
+        try:
+            answers = [
+                InlineQueryResultArticle(
+                    title="Calculator",
+                    description=f"New calculator",
+                    input_message_content=InputTextMessageContent(
+                        text=CALCULATE_TEXT,
+                        disable_web_page_preview=True,
+                        reply_markup=CALCULATE_BUTTONS
+                    ),
+                    reply_markup=CALCULATE_BUTTONS
+                )
+            ]
+            await bot.answer_inline_query(
+                inline_query_id=update.chat.id,
+                results=answers
+            )
+        except Exception as error:
+            print(error)
+    else:
+        try:
+            message_text = update.message.text.split("\n")[0].strip().split("=")[0].strip()
+            text = float(eval(message_text))
+            answers = [
+                InlineQueryResultArticle(
+                    title="Answer",
+                    description=f"",
+                    input_message_content=InputTextMessageContent(
+                        text=f"{data} = {text}",
+                        disable_web_page_preview=True
+                    )
+                )
+            ]
+            await bot.answer_inline_query(
+                inline_query_id=update.chat.id,
+                results=answers
+            )
+        except:
+            pass
+
 FayasNoushad.run()
