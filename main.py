@@ -93,6 +93,9 @@ async def cb_data(bot, update):
 @FayasNoushad.on_inline_query()
 async def inline(bot, update):
     data = update.query
+    data = data.replcae(" ", "")
+    data = data.replace("×", "*")
+    data = data.replace("÷", "*")
     if len(data) == 0:
         try:
             answers = [
