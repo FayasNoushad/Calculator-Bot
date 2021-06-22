@@ -10,16 +10,17 @@ FayasNoushad = Client(
 )
 
 START_TEXT = """
-Hello {}, I am a simple calculator telegram bot. Send me /calculator.
+Hello {}, I am a Disney Team calculator telegram bot send /calc to start 😁.
 
-Made by @FayasNoushad
+Made by ❤ by @doreamonfans2
 """
 START_BUTTONS = InlineKeyboardMarkup(
         [[
-        InlineKeyboardButton('⚙ Join Updates Channel ⚙', url='https://telegram.me/FayasNoushad')
+        InlineKeyboardButton('👨‍🔧Updates Channel👨‍🔧', url='https://telegram.me/disneygrou'),
+        InlineKeyboardButton('🤖Support Group', url='https://telegram.me/disneyteamchat')
         ]]
     )
-CALCULATE_TEXT = "Made by @FayasNoushad"
+CALCULATE_TEXT = "Made by @doreamonfans2"
 CALCULATE_BUTTONS = InlineKeyboardMarkup(
         [[
         InlineKeyboardButton("DEL", callback_data="DEL"),
