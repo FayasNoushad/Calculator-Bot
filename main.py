@@ -1,3 +1,5 @@
+# Author: Fayas (https://github.com/FayasNoushad) (@FayasNoushad)
+
 import os
 from pyrogram import Client, filters
 from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton, InlineQueryResultArticle, InputTextMessageContent
