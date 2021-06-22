@@ -10,7 +10,7 @@ FayasNoushad = Client(
 )
 
 START_TEXT = """
-Hello {}, I am a simple calculator telegram bot.
+Hello {}, I am a simple calculator telegram bot. Send me /calculator.
 
 Made by @FayasNoushad
 """
