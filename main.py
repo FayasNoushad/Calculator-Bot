@@ -2,7 +2,7 @@
 
 import os
 from pyrogram import Client, filters
-from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton, InlineQueryResultArticle, InputTextMessageContent
+from pyrogram.types import *
 
 FayasNoushad = Client(
     "Calculator Bot",
@@ -106,8 +106,7 @@ async def inline(bot, update):
                     description=f"New calculator",
                     input_message_content=InputTextMessageContent(
                         text=CALCULATE_TEXT,
-                        disable_web_page_preview=True,
-                        reply_markup=CALCULATE_BUTTONS
+                        disable_web_page_preview=True
                     ),
                     reply_markup=CALCULATE_BUTTONS
                 )
