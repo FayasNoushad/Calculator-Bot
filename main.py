@@ -4,12 +4,14 @@ import os
 from pyrogram import Client, filters
 from pyrogram.types import *
 
+
 FayasNoushad = Client(
     "Calculator Bot",
     bot_token = os.environ["BOT_TOKEN"],
     api_id = int(os.environ["API_ID"]),
     api_hash = os.environ["API_HASH"]
 )
+
 
 START_TEXT = """
 Hello {}, I am a simple calculator telegram bot. Send me /calculator.
@@ -51,6 +53,7 @@ CALCULATE_BUTTONS = InlineKeyboardMarkup(
         ]]
     )
 
+
 @FayasNoushad.on_message(filters.command(["start"]))
 async def start(bot, update):
     text = START_TEXT.format(update.from_user.mention)
@@ -61,6 +64,7 @@ async def start(bot, update):
         reply_markup=reply_markup
     )
 
+
 @FayasNoushad.on_message(filters.private & filters.command(["calc", "calculate", "calculator"]))
 async def calculate(bot, update):
     await update.reply_text(
@@ -69,6 +73,7 @@ async def calculate(bot, update):
         disable_web_page_preview=True,
         quote=True
     )
+
 
 @FayasNoushad.on_callback_query()
 async def cb_data(bot, update):
@@ -91,6 +96,7 @@ async def cb_data(bot, update):
             )
         except Exception as error:
             print(error)
+
 
 @FayasNoushad.on_inline_query()
 async def inline(bot, update):
@@ -137,5 +143,6 @@ async def inline(bot, update):
             )
         except:
             pass
+
 
 FayasNoushad.run()
