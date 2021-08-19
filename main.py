@@ -100,8 +100,7 @@ async def cb_data(bot, update):
 
 @Bot.on_inline_query()
 async def inline(bot, update):
-    data = update.query.replace("×", "*").replace("÷", "/")
-    if len(data) == 0:
+    if len(update.data) == 0:
         try:
             answers = [
                 InlineQueryResultArticle(
@@ -114,16 +113,13 @@ async def inline(bot, update):
                     reply_markup=CALCULATE_BUTTONS
                 )
             ]
-            await bot.answer_inline_query(
-                inline_query_id=update.chat.id,
-                results=answers
-            )
         except Exception as error:
             print(error)
     else:
         try:
             message_text = update.message.text.split("\n")[0].strip().split("=")[0].strip()
-            text = float(eval(message_text))
+            data = message_text.replace("×", "*").replace("÷", "/")
+            text = float(eval(data))
             answers = [
                 InlineQueryResultArticle(
                     title="Answer",
@@ -134,9 +130,9 @@ async def inline(bot, update):
                     )
                 )
             ]
-            await update.answer(answers)
         except:
             pass
+    await update.answer(answers)
 
 
 Bot.run()
