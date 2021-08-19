@@ -5,7 +5,7 @@ from pyrogram import Client, filters
 from pyrogram.types import *
 
 
-FayasNoushad = Client(
+Bot = Client(
     "Calculator Bot",
     bot_token = os.environ["BOT_TOKEN"],
     api_id = int(os.environ["API_ID"]),
@@ -54,7 +54,7 @@ CALCULATE_BUTTONS = InlineKeyboardMarkup(
     )
 
 
-@FayasNoushad.on_message(filters.command(["start"]))
+@Bot.on_message(filters.command(["start"]))
 async def start(bot, update):
     text = START_TEXT.format(update.from_user.mention)
     reply_markup = START_BUTTONS
@@ -65,7 +65,7 @@ async def start(bot, update):
     )
 
 
-@FayasNoushad.on_message(filters.private & filters.command(["calc", "calculate", "calculator"]))
+@Bot.on_message(filters.private & filters.command(["calc", "calculate", "calculator"]))
 async def calculate(bot, update):
     await update.reply_text(
         text=CALCULATE_TEXT,
@@ -75,7 +75,7 @@ async def calculate(bot, update):
     )
 
 
-@FayasNoushad.on_callback_query()
+@Bot.on_callback_query()
 async def cb_data(bot, update):
         data = update.data
         try:
@@ -98,12 +98,9 @@ async def cb_data(bot, update):
             print(error)
 
 
-@FayasNoushad.on_inline_query()
+@Bot.on_inline_query()
 async def inline(bot, update):
-    data = update.query
-    data = data.replace(" ", "")
-    data = data.replace("×", "*")
-    data = data.replace("÷", "*")
+    data = update.query.replace("×", "*").replace("÷", "/")
     if len(data) == 0:
         try:
             answers = [
@@ -145,4 +142,4 @@ async def inline(bot, update):
             pass
 
 
-FayasNoushad.run()
+Bot.run()
