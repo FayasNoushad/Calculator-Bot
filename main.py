@@ -134,10 +134,7 @@ async def inline(bot, update):
                     )
                 )
             ]
-            await bot.answer_inline_query(
-                inline_query_id=update.chat.id,
-                results=answers
-            )
+            await update.answer(answers)
         except:
             pass
 
