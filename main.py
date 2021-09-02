@@ -124,7 +124,7 @@ async def inline(bot, update):
             answers = [
                 InlineQueryResultArticle(
                     title="Answer",
-                    description=f"",
+                    description=f"Results of your input",
                     input_message_content=InputTextMessageContent(
                         text=f"{data} = {text}",
                         disable_web_page_preview=True
