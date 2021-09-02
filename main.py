@@ -1,4 +1,8 @@
-# Author: Fayas (https://github.com/FayasNoushad) (@FayasNoushad)
+# Made with python3
+# (C) @FayasNoushad
+# Copyright permission under MIT License
+# All rights reserved by FayasNoushad
+# License -> https://github.com/FayasNoushad/Calculator-Bot/blob/main/LICENSE
 
 import os
 from pyrogram import Client, filters
