@@ -1,21 +1,5 @@
-```
-Made with Python3
-(C) @FayasNoushad
-Copyright permission under MIT License
-License -> https://github.com/FayasNoushad/Calculator-Bot/blob/main/LICENSE
-```
-
----
-
-## Deploy
-
-```sh
-git clone https://github.com/FayasNoushad/Calculator-Bot/tree/main
-cd Calculator-Bot
-pip3 install -r requirements.txt
-# <Create Variables appropriately>
-python3 main.py
-```
+# Calculator Bot
+A telegram maths calculator bot
 
 ---
 
@@ -27,9 +11,11 @@ python3 main.py
 
 ---
 
-## Credits
+## Commands
 
-- [Fayas Noushad](https://github.com/FayasNoushad)
-- [Pyrogram](https://github.com/pyrogram/pyrogram)
+```
+start - For start bot
+calculate - For calculator interface
+```
 
 ---
