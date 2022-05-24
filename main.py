@@ -12,9 +12,12 @@ Bot = Client(
 
 
 START_TEXT = """Hello {},
-I am a simple calculator telegram bot. Send me /calculator.
+I am a simple calculator telegram bot. \
+Send me /calculator for inline button keyboard or send as text. \
+You can also use me in inline.
 
 Made by @FayasNoushad"""
+
 START_BUTTONS = InlineKeyboardMarkup(
     [
         [
@@ -22,7 +25,9 @@ START_BUTTONS = InlineKeyboardMarkup(
         ]
     ]
 )
+
 CALCULATE_TEXT = "Made by @FayasNoushad"
+
 CALCULATE_BUTTONS = InlineKeyboardMarkup(
     [
         [
@@ -60,20 +65,18 @@ CALCULATE_BUTTONS = InlineKeyboardMarkup(
 
 
 @Bot.on_message(filters.command(["start"]))
-async def start(bot, update):
-    text = START_TEXT.format(update.from_user.mention)
-    reply_markup = START_BUTTONS
-    await update.reply_text(
-        text=text,
+async def start(_, message):
+    await message.reply_text(
+        text=START_TEXT.format(message.from_user.mention),
         disable_web_page_preview=True,
-        reply_markup=reply_markup,
+        reply_markup=START_BUTTONS,
         quote=True
     )
 
 
 @Bot.on_message(filters.private & filters.command(["calc", "calculate", "calculator"]))
-async def calculate(bot, update):
-    await update.reply_text(
+async def calculate(_, message):
+    await message.reply_text(
         text=CALCULATE_TEXT,
         reply_markup=CALCULATE_BUTTONS,
         disable_web_page_preview=True,
@@ -81,21 +84,36 @@ async def calculate(bot, update):
     )
 
 
+@Bot.on_message(filters.private & filters.text)
+async def evaluate(_, message):
+    try:
+        data = message.text.replace("×", "*").replace("÷", "/")
+        result = str(eval(data))
+    except:
+        return
+    await message.reply_text(
+        text=result,
+        reply_markup=CALCULATE_BUTTONS,
+        disable_web_page_preview=True,
+        quote=True
+    )
+
+
 @Bot.on_callback_query()
-async def cb_data(bot, update):
-        data = update.data
+async def cb_data(_, message):
+        data = message.data
         try:
-            message_text = update.message.text.split("\n")[0].strip().split("=")[0].strip()
-            message_text = '' if CALCULATE_TEXT in message_text else message_text
+            message_text = message.message.text.split("\n")[0].strip().split("=")[0].strip()
+            text = '' if CALCULATE_TEXT in message_text else message_text
             if data == "=":
-                text = float(eval(message_text))
+                text = str(eval(text))
             elif data == "DEL":
                 text = message_text[:-1]
             elif data == "AC":
                 text = ""
             else:
                 text = message_text + data
-            await update.message.edit_text(
+            await message.message.edit_text(
                 text=f"{text}\n\n{CALCULATE_TEXT}",
                 disable_web_page_preview=True,
                 reply_markup=CALCULATE_BUTTONS
@@ -111,7 +129,7 @@ async def inline(bot, update):
             answers = [
                 InlineQueryResultArticle(
                     title="Calculator",
-                    description=f"New calculator",
+                    description="New calculator",
                     input_message_content=InputTextMessageContent(
                         text=CALCULATE_TEXT,
                         disable_web_page_preview=True
@@ -123,15 +141,14 @@ async def inline(bot, update):
             print(error)
     else:
         try:
-            message_text = update.message.text.split("\n")[0].strip().split("=")[0].strip()
-            data = message_text.replace("×", "*").replace("÷", "/")
-            text = float(eval(data))
+            data = update.query.replace("×", "*").replace("÷", "/")
+            result = str(eval(text))
             answers = [
                 InlineQueryResultArticle(
                     title="Answer",
-                    description=f"Results of your input",
+                    description=f"Result: {result}",
                     input_message_content=InputTextMessageContent(
-                        text=f"{data} = {text}",
+                        text=f"{data} = {result}",
                         disable_web_page_preview=True
                     )
                 )
